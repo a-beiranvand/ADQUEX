@@ -1,0 +1,20 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX drugbank: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
+PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+PREFIX kegg:     <http://bio2rdf.org/ns/kegg#>
+SELECT * WHERE
+{
+	SERVICE <http://192.168.1.2:8890/sparql>{
+		?Drug rdf:type dbpedia-owl:Drug .
+		?Drug owl:sameAs  ?drugbankdrug.}
+	SERVICE <http://192.168.1.5:8890/sparql>{
+		?drugbankdrug rdf:type drugbank:drugs .
+		?drugbankdrug drugbank:keggCompoundId ?cpd .}
+	SERVICE <http://192.168.1.6:8890/sparql>{
+		?enzyme kegg:xSubstrate ?cpd .
+		?enzyme rdf:type kegg:Enzyme .
+		?reaction kegg:xEnzyme ?enzyme .
+		?reaction kegg:equation ?equation .} 
+}
+

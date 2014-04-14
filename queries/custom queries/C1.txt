@@ -1,0 +1,19 @@
+prefix dbpedia-owl:<http://dbpedia.org/ontology/>
+prefix owl:<http://www.w3.org/2002/07/owl#>
+prefix nytimes: <http://data.nytimes.com/elements/>
+prefix dc:<http://purl.org/dc/terms/>
+prefix linkedMDB: <http://data.linkedmdb.org/resource/movie/>
+prefix dbpedia: <http://dbpedia.org/resource/>
+prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT * WHERE 
+	{
+		SERVICE <http://192.168.1.2:8890/sparql>{
+			?dbfilm a dbpedia-owl:Film.
+			?dbfilm dbpedia-owl:director ?dbdirector. }
+		SERVICE <http://192.168.1.3:8890/sparql>{
+			?imdbfilm owl:sameAs ?dbfilm.
+			?imdbfilm dc:title ?title.}
+		SERVICE <http://192.168.1.4:8890/sparql>{
+			?concept owl:sameAs ?dbdirector.
+			?concept nytimes:topicPage ?directorpage.}
+	}
