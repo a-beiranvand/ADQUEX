@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <logger name="httpclient.wire.content" level="debug"/>
+  <logger name="httpclient" level="debug"/>
+  <logger name="httpclient.wire" level="debug"/>
+  <logger name="org.apache.commons.httpclient.wire.content" level="debug"/>
+  <logger name="httpclient.wire.header" level="debug"/>
+  <logger name="org.openrdf.http.client.HTTPClient" level="debug"/>
+  <logger name="org.openrdf.http.client" level="debug"/>
+  <logger name="org.apache.commons.httpclient" level="debug"/>
+</configuration>
