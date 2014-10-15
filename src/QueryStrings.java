@@ -57,12 +57,12 @@ public class QueryStrings
 			"PREFIX dbpedia-owl:<http://dbpedia.org/ontology/>PREFIX owl:<http://www.w3.org/2002/07/owl#>prefix nytimes: <http://data.nytimes.com/elements/>prefix dc:<http://purl.org/dc/terms/>prefix linkedMDB: <http://data.linkedmdb.org/resource/movie/>prefix dbpedia: <http://dbpedia.org/resource/>prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
 			"SELECT * WHERE\n"+ 	
 			 "{ \n" +
-			 	"SERVICE <http://192.168.1.2:8890/sparql>\n" +
+			 	"SERVICE <http://192.168.1.7:8890/sparql>\n" +
 			 	"{\n"+				
 				 	"?film dbpedia-owl:director ?director.\n" +
 				 	"?director dbpedia-owl:nationality dbpedia:Italy .\n" +
 			 	"}\n" +
-				 "SERVICE <http://192.168.1.3:8890/sparql>\n" +
+				 "SERVICE <http://192.168.1.6:8890/sparql>\n" +
 				 "{\n"+
 				 	"?x owl:sameAs ?film .\n" +
 				 	"?x linkedMDB:genre ?genre.\n" +
@@ -127,7 +127,7 @@ public class QueryStrings
 					"}\n" +
 				  "SERVICE <http://192.168.1.4:8890/sparql>\n" +
 				  "{\n" +
-				  		"?concept owl:sameAs ?dbdirector.\n" +
+				  		"?concept owl:sameAs ?director.\n" +
 				  		"?concept nytimes:topicPage ?directorpage.\n"+
 				  "}\n" +
 			  "}\n" ;
