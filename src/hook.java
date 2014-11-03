@@ -234,32 +234,72 @@ public class hook {
 //						"?y nytimes:topicPage ?news.\n" +
 //					"}\n" +
 //				"}"		;
-		String queryString=	"PREFIX dbpedia-owl:<http://dbpedia.org/ontology/>PREFIX owl:<http://www.w3.org/2002/07/owl#>prefix nytimes: <http://data.nytimes.com/elements/>prefix dc:<http://purl.org/dc/terms/>prefix linkedMDB: <http://data.linkedmdb.org/resource/movie/>prefix dbpedia: <http://dbpedia.org/resource/>prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-		"SELECT * WHERE\n"+ 	
-		 "{ \n" +
-		 	"SERVICE <http://dbpedia.org/sparql>\n" +
-		 	"{\n"+				
-			 	"?film dbpedia-owl:director ?director.\n" +				 	
-		 	"}\n" +
-			 "SERVICE <http://192.168.1.3:8890/sparql>\n" +
-			 "{\n"+
-			 	"?x owl:sameAs ?film .\n" +
-			 	"?x linkedMDB:genre ?genre.\n" +
-			 "}\n"+
-		 "}"	;
+//		String queryString=	"PREFIX dbpedia-owl:<http://dbpedia.org/ontology/>PREFIX owl:<http://www.w3.org/2002/07/owl#>prefix nytimes: <http://data.nytimes.com/elements/>prefix dc:<http://purl.org/dc/terms/>prefix linkedMDB: <http://data.linkedmdb.org/resource/movie/>prefix dbpedia: <http://dbpedia.org/resource/>prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
+//		"SELECT * WHERE\n"+ 	
+//		 "{ \n" +
+//		 	"SERVICE <http://dbpedia.org/sparql>\n" +
+//		 	"{\n"+				
+//			 	"?film dbpedia-owl:director ?director.\n" +				 	
+//		 	"}\n" +
+//			 "SERVICE <http://192.168.1.3:8890/sparql>\n" +
+//			 "{\n"+
+//			 	"?x owl:sameAs ?film .\n" +
+//			 	"?x linkedMDB:genre ?genre.\n" +
+//			 "}\n"+
+//		 "}"	;
+		
+		String queryString="PREFIX dbpedia-owl:<http://dbpedia.org/ontology/>"+
+				"PREFIX owl:<http://www.w3.org/2002/07/owl#>" +
+				"prefix nytimes: <http://data.nytimes.com/elements/>" +
+				"prefix dc:<http://purl.org/dc/terms/>" +
+				"prefix linkedMDB: <http://data.linkedmdb.org/resource/movie/>"+
+				"prefix dbpedia: <http://dbpedia.org/resource/>" +
+				"prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"+
+				"SELECT * WHERE { "+
+//				"{SERVICE <http://dbpedia.org/sparql>\n" +
+//				"{\n"+
+////				"?dbfilm a dbpedia-owl:Film.\n"+
+////				"?dbfilm dbpedia-owl:budget ?bd .\n"+
+//					" dbpedia:Barack_Obama ?predicate ?object."+
+//				"}}\n"+
+//				"SERVICE <http://dbpedia.org/sparql>\n" +
+//				"{\n"+
+//				"?dbfilm dbpedia-owl:budget ?budget .\n"+
+//				"}\n"+
+//				"}";
+//				"{ dbpedia:Barack_Obama ?predicate ?object }"+
+//				"UNION"+
+				"SERVICE <http://dbpedia.org/sparql>\n" +
+					"{\n"+
+						"?pres rdf:type dbpedia-owl:President ." +
+						"?pres dbpedia-owl:nationality dbpedia:United_States ."+
+						"?pres dbpedia-owl:party ?party"+
+					"}" +
+				 "SERVICE <http://dbpedia.org/sparql>\n" +
+						"{\n"+
+							"?pres rdf:type dbpedia-owl:President ." +
+							"?pres dbpedia-owl:nationality dbpedia:United_States ."+
+//							"?pres dbpedia-owl:party <http://dbpedia.org/resource/Democratic_Party_(United_States)>"+
+							"?pres dbpedia-owl:party ?partyj"+
+						"}"+
+				"}\n";
+//				"{ SERVICE <http://dbpedia.org/sparql>{" +
+//				" ?subject owl:sameAs dbpedia:Barack_Obama ." +
+//			    " ?subject ?predicate ?object } }}" ;
+//		String queryString =QueryStrings.cd5Service ;
 		myLogger.queryId="TESTMOTIVATION"  ;
 		myLogger.queryString=queryString ;
 		myLogger.systemName="MySystem-Lottery" ;
-		myLogger.folderToSave="H:\\Isfahan University Of Technology\\Term 3\\Project\\Final Evaluation Results\\Adaptivity Test\\Effect of random priority\\";
+		myLogger.folderToSave="H:\\Isfahan University Of Technology\\Term 6\\Project\\Final Evaluation Results\\Adaptivity Test\\Effect of random priority\\";
 		myLogger.timeout=5;
 		try
 		{
 			long startTime =System.currentTimeMillis();
 			TupleExpr tExpr = Parser.parseQueryString(queryString) ;
-//			System.out.println(tExpr.toString());
+			System.out.println(tExpr.toString());
 			Optimizer.Optimize(tExpr,true) ;
-//			System.out.println("Optimized Plan:\n");
-//			System.out.println(tExpr);
+			System.out.println("Optimized Plan:\n");
+			System.out.println(tExpr);
 //			Joinprinter jp =new Joinprinter();			
 //			tExpr.visit(jp);
 //			JoinTableGenerator jt =new JoinTableGenerator() ;
@@ -274,7 +314,6 @@ public class hook {
 			while (true)
 			{
 				bindings =results.next() ;
-				System.out.println(bindings);
 				if (bindings == null )
 					break ;
 				if (isFirstTuple)
@@ -284,22 +323,21 @@ public class hook {
 					//System.out.println("First Tuple = "+firstTuple);
 					isFirstTuple=false;
 				}
+				System.out.println(bindings);
 				//System.out.println(bindings.toString());
 				countTuples++;
-				//System.out.println("||||||Count Results ="+countTuples);
+				System.out.println("||||||Count Results ="+countTuples);
 			
 			}
 			long executionTime =System.currentTimeMillis()-startTime;
 			myLogger.executionTime=executionTime ;
 			myLogger.numberOfResultTuples =countTuples ;
 			
-			//System.out.println("Execution Time = "+ executionTime);
+			System.out.println("Execution Time = "+ executionTime);
 			Thread.sleep(2000) ;
-			myLogger.printStatistics() ;
-			myLogger.saveStatistics();
+			//myLogger.printStatistics() ;
+			//myLogger.saveStatistics();
 			System.exit(0);
-			
-			
 		}
 		catch (MalformedQueryException e)
 		{

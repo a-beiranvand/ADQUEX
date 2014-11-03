@@ -5,9 +5,11 @@ import iut.software.federationegine.structures.QueryResultList;
 import iut.software.federationegine.structures.SubQuery;
 import iut.software.federationegine.structures.Tuple;
 import iut.software.federationengine.optimizer.FedJoinCounter;
+import iut.software.federationengine.optimizer.UnionDecomposer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.openrdf.query.algebra.TupleExpr;
@@ -23,6 +25,17 @@ public class FederatedQueryExecuter {
 	public static QueryResultList ExecuteTupleExpr(TupleExpr tupleExprToExecute) throws OptimizerException
 	{
 		//you should change the return type // Solved in 8-8-92
+		List<TupleExpr> UnionSubqueries =new UnionDecomposer().getListOfUnionSubQueries(tupleExprToExecute) ;
+		if (UnionSubqueries.size()>0)
+		{
+//			System.out.println("Number of union subqueris:"+ UnionSubqueries.size());
+//			System.out.println(UnionSubqueries);
+			LinkedBlockingQueue<Tuple> finalResults =new LinkedBlockingQueue<Tuple>() ;
+			UnionExecuter unionExec =new UnionExecuter(UnionSubqueries, finalResults) ;
+			Thread ThreadUnionExec =new Thread(unionExec) ;
+			ThreadUnionExec.start() ;
+			return new QueryResultList(finalResults);
+		}
 		int countFedJoins =(new FedJoinCounter().countFedJoins(tupleExprToExecute)) ;
 		if (countFedJoins==0)
 		{
@@ -35,6 +48,7 @@ public class FederatedQueryExecuter {
 			Eddy eddyinstance =Eddy.getInstance() ;
 			JoinTableGenerator jtGenerator = new JoinTableGenerator();
 			HashMap<String,ArrayList<Byte>> joinTable = jtGenerator.GenerateJoinTable(tupleExprToExecute) ;
+			System.out.println(joinTable);
 			eddyinstance.setJoinVarTojoinMapper(joinTable) ;
 			ArrayList<SubQuery> subQs =new SubQueryGenerator().GenerateSubQueries(tupleExprToExecute) ;
 			eddyinstance.setSubQueries(subQs);
