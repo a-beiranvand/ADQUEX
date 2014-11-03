@@ -4,6 +4,7 @@ import iut.software.federationegine.structures.OptimizerException;
 import iut.software.federationegine.structures.QueryResultList;
 import iut.software.federationegine.structures.SubQuery;
 import iut.software.federationegine.structures.Tuple;
+import iut.software.federationengine.logging.myLogger;
 import iut.software.federationengine.optimizer.FedJoinCounter;
 import iut.software.federationengine.optimizer.UnionDecomposer;
 
@@ -48,22 +49,31 @@ public class FederatedQueryExecuter {
 			Eddy eddyinstance =Eddy.getInstance() ;
 			JoinTableGenerator jtGenerator = new JoinTableGenerator();
 			HashMap<String,ArrayList<Byte>> joinTable = jtGenerator.GenerateJoinTable(tupleExprToExecute) ;
-			System.out.println(joinTable);
+			//System.out.println(joinTable);
+			myLogger.printInfo(joinTable);
 			eddyinstance.setJoinVarTojoinMapper(joinTable) ;
 			ArrayList<SubQuery> subQs =new SubQueryGenerator().GenerateSubQueries(tupleExprToExecute) ;
 			eddyinstance.setSubQueries(subQs);
 			eddyinstance.setQueryTupleExpr(tupleExprToExecute);
-			System.out.println("---------------------------------------");
+			//System.out.println("---------------------------------------");
+			myLogger.printInfo("---------------------------------------");
 			int i= 0 ;
 			for (SubQuery sq :subQs)
 			{
-				System.out.println("///////////////////////////////////////////////////////\n");
-				System.out.println("Sub Query Name: "+sq.getSubQueryName());
-				System.out.println("sub query string "+i+":"+sq.getQueryString());
-				System.out.println("sub query "+i+" join vars:"+sq.getJoinVars());
-				System.out.println("sub query "+i+" endpoint :"+sq.getEndpointAdress());
-				System.out.println("\nsub query join bit pattern: "+sq.getReadyBitPattern());
-				System.out.println("\n///////////////////////////////////////////////////////\n");
+				myLogger.printInfo("///////////////////////////////////////////////////////\n");
+				//System.out.println("///////////////////////////////////////////////////////\n");
+				myLogger.printInfo("Sub Query Name: "+sq.getSubQueryName());
+				//System.out.println("Sub Query Name: "+sq.getSubQueryName());
+				myLogger.printInfo("sub query string "+i+":"+sq.getQueryString());
+				//System.out.println("sub query string "+i+":"+sq.getQueryString());
+				myLogger.printInfo("sub query "+i+" join vars:"+sq.getJoinVars());
+				//System.out.println("sub query "+i+" join vars:"+sq.getJoinVars());
+				myLogger.printInfo("sub query "+i+" endpoint :"+sq.getEndpointAdress());
+				//System.out.println("sub query "+i+" endpoint :"+sq.getEndpointAdress());
+				myLogger.printInfo("\nsub query join bit pattern: "+sq.getReadyBitPattern());
+				//System.out.println("\nsub query join bit pattern: "+sq.getReadyBitPattern());
+				myLogger.printInfo("\n///////////////////////////////////////////////////////\n");
+				//System.out.println("\n///////////////////////////////////////////////////////\n");
 				i++;
 			}
 			//Eddy is a runnable object create a new thread for eddy.

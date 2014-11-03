@@ -282,6 +282,13 @@ public class hook {
 //							"?pres dbpedia-owl:party <http://dbpedia.org/resource/Democratic_Party_(United_States)>"+
 							"?pres dbpedia-owl:party ?partyj"+
 						"}"+
+						 "SERVICE <http://dbpedia.org/sparql>\n" +
+							"{\n"+
+								"?pres rdf:type dbpedia-owl:President ." +
+								"?pres dbpedia-owl:nationality dbpedia:United_States ."+
+//								"?pres dbpedia-owl:party <http://dbpedia.org/resource/Democratic_Party_(United_States)>"+
+								"?pres dbpedia-owl:party ?partyk"+
+							"}"+
 				"}\n";
 //				"{ SERVICE <http://dbpedia.org/sparql>{" +
 //				" ?subject owl:sameAs dbpedia:Barack_Obama ." +
@@ -292,14 +299,18 @@ public class hook {
 		myLogger.systemName="MySystem-Lottery" ;
 		myLogger.folderToSave="H:\\Isfahan University Of Technology\\Term 6\\Project\\Final Evaluation Results\\Adaptivity Test\\Effect of random priority\\";
 		myLogger.timeout=5;
+		myLogger.logging=false;
 		try
 		{
 			long startTime =System.currentTimeMillis();
 			TupleExpr tExpr = Parser.parseQueryString(queryString) ;
-			System.out.println(tExpr.toString());
+			myLogger.printInfo(tExpr);
+			//System.out.println(tExpr.toString());
 			Optimizer.Optimize(tExpr,true) ;
-			System.out.println("Optimized Plan:\n");
-			System.out.println(tExpr);
+			myLogger.printInfo("Optimized Plan:\n");
+			//System.out.println("Optimized Plan:\n");
+			myLogger.printInfo(tExpr);
+			//System.out.println(tExpr);
 //			Joinprinter jp =new Joinprinter();			
 //			tExpr.visit(jp);
 //			JoinTableGenerator jt =new JoinTableGenerator() ;
@@ -323,10 +334,12 @@ public class hook {
 					//System.out.println("First Tuple = "+firstTuple);
 					isFirstTuple=false;
 				}
-				System.out.println(bindings);
+				myLogger.printInfo(bindings);
+				//System.out.println(bindings);
 				//System.out.println(bindings.toString());
 				countTuples++;
-				System.out.println("||||||Count Results ="+countTuples);
+				myLogger.printInfo("||||||Count Results ="+countTuples) ;
+				//System.out.println("||||||Count Results ="+countTuples);
 			
 			}
 			long executionTime =System.currentTimeMillis()-startTime;

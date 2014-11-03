@@ -99,15 +99,15 @@ public class Eddy implements Runnable{
 		this.eddyThreadState=ThreadStatus.Normal;
 		//this.waitForAllSubqueryExecs=true ;
 		this.waitForAllSubqueryExecs=false; 
-		//this.StrRoutingStrategy="Deterministic";
-		this.StrRoutingStrategy="Lottery" ;
-		//this.randomCeiling =100;
-		this.randomCeiling =0;
-		//this.useRandomPriority=true;
-		this.useRandomPriority=false;
+		this.StrRoutingStrategy="Deterministic";
+		//this.StrRoutingStrategy="Lottery" ;
+		this.randomCeiling =100;
+		//this.randomCeiling =0;
+		this.useRandomPriority=true;
+		//this.useRandomPriority=false;
 		//--------
 		this.delayFine=0.1 ;
-		this.delayThreshold=10;
+		this.delayThreshold=50;
 //		this.delayFine=0 ;
 //		this.delayThreshold=0;
 		
@@ -221,7 +221,8 @@ public class Eddy implements Runnable{
 					break ;
 			}
 			startTime= System.currentTimeMillis() ;
-			System.out.println("All Subqueries Finished!");	
+			myLogger.printInfo("All Subqueries Finished!");
+			//System.out.println("All Subqueries Finished!");	
 		}
 		
 		//========================END DIFFERENT EXECUTIONS================================
@@ -258,7 +259,8 @@ public class Eddy implements Runnable{
 			}
 			//System.out.println("Routing" + debugi);
 		}
-		System.out.println("Eddy exits on iteration "+debugi);
+		myLogger.printInfo("Eddy exits on iteration "+debugi);
+		//System.out.println("Eddy exits on iteration "+debugi);
 		
 		while (true)
 		{
@@ -298,11 +300,14 @@ public class Eddy implements Runnable{
 		if (this.waitForAllSubqueryExecs)
 		{
 			long endTime =System.currentTimeMillis() ;
-			System.out.println("Execution time without Endpoint Delays=" + (endTime-startTime));
+			myLogger.printInfo("Execution time without Endpoint Delays=" + (endTime-startTime));
+			//System.out.println("Execution time without Endpoint Delays=" + (endTime-startTime));
 			
 		}
-		System.out.println("Eddy exits on iteration(2) "+debugi);
-		System.out.println("Eddy Fully Terminated!");
+		myLogger.printInfo("Eddy exits on iteration(2) "+debugi);
+		//System.out.println("Eddy exits on iteration(2) "+debugi);
+		myLogger.printInfo("Eddy Fully Terminated!") ;
+		//System.out.println("Eddy Fully Terminated!");
 		this.routingStrategy.printRoutingStatistics();
 		
 		

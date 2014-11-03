@@ -206,13 +206,13 @@ public class DeterministicRoutingStrategy implements RoutingStrategy
 	{
 		int countIntermediateResults = 0; 
 		
-		System.out.println("&&&&&&&&&&  OPERATOR COSTS= "+Arrays.toString(operatorCosts));
+		myLogger.printInfo ("&&&&&&&&&&  OPERATOR COSTS= "+Arrays.toString(operatorCosts));
 		//For Logging
 		myLogger.opStatisticList =new ArrayList<OperatorStatistics>() ;
 		for (JoinExecuterState joinExecStateItem : this.joinExecutersStates)
 		{
-			System.out.println("$$$$$$ join id "+ joinExecStateItem.getJoinexecuter().getJoinId()+" Input = "+joinExecStateItem.getJoinexecuter().getCountIncomeTuples()+" Output= " +joinExecStateItem.getJoinexecuter().getCountOutcomeTuples());
-			System.out.println("%%%%%% join id "+ joinExecStateItem.getJoinexecuter().getJoinId()+"Left Edge Input = "+joinExecStateItem.getCountLeftEdgeIncome()+" Right Edge Input= " +joinExecStateItem.getCountRightEdgeIncome());
+			myLogger.printInfo("$$$$$$ join id "+ joinExecStateItem.getJoinexecuter().getJoinId()+" Input = "+joinExecStateItem.getJoinexecuter().getCountIncomeTuples()+" Output= " +joinExecStateItem.getJoinexecuter().getCountOutcomeTuples());
+			myLogger.printInfo("%%%%%% join id "+ joinExecStateItem.getJoinexecuter().getJoinId()+"Left Edge Input = "+joinExecStateItem.getCountLeftEdgeIncome()+" Right Edge Input= " +joinExecStateItem.getCountRightEdgeIncome());
 			/**
 			 * faghat tuple haye gheir final ro jozv in amar hesab kardam
 			 */
@@ -225,8 +225,8 @@ public class DeterministicRoutingStrategy implements RoutingStrategy
 			myLogger.opStatisticList.add(opStats);
 			
 		}
-		System.out.println("£££££££ Count Of Intermediate Results= "+countIntermediateResults);
-		System.out.println("^^^^^^^ All Of Routed Tuples= "+ this.routedTuples);
+		myLogger.printInfo("£££££££ Count Of Intermediate Results= "+countIntermediateResults);
+		myLogger.printInfo("^^^^^^^ All Of Routed Tuples= "+ this.routedTuples);
 		
 		//For Logging
 		myLogger.numberOfIntermediateResults=countIntermediateResults ;

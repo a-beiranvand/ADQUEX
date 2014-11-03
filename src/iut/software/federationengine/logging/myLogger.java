@@ -27,7 +27,7 @@ public class myLogger
 	public static int numberOfIntermediateResults ;
 	public static boolean useRandomPriority ;
 	public static int timeout ;
-	
+	public static boolean logging ;
 	public static String folderToSave ;
 	public static void printStatistics ()
 	{
@@ -135,5 +135,13 @@ public class myLogger
 			e.printStackTrace();
 		}
 		System.out.println("Statistics Writed To File.");
+	}
+	
+	public static void printInfo (Object Info)
+	{
+		if (logging)
+		{
+			System.out.println("[INFO] "+ Info);
+		}
 	}
 }

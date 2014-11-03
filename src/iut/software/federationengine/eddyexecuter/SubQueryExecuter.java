@@ -3,6 +3,7 @@ package iut.software.federationengine.eddyexecuter;
 import iut.software.federationegine.structures.OptimizerException;
 import iut.software.federationegine.structures.SubQuery;
 import iut.software.federationegine.structures.Tuple;
+import iut.software.federationengine.logging.myLogger;
 import iut.software.federationengine.threadmanagement.PoisonPill;
 import iut.software.federationengine.threadmanagement.ThreadStatus;
 
@@ -124,7 +125,8 @@ public class SubQueryExecuter implements Runnable {
 			poisonSubQueryFinished.setPriority(0);
 			TupleHeap.add(poisonSubQueryFinished) ;
 			//========================TEST=================
-			System.out.println("Sub Query "+this.subQueryName+"Finished with"+tupleCounter+" Tuples.");
+			myLogger.printInfo("Sub Query "+this.subQueryName+"Finished with"+tupleCounter+" Tuples.");
+			//System.out.println("Sub Query "+this.subQueryName+"Finished with"+tupleCounter+" Tuples.");
 			Eddy.getInstance().incFinishedSqExecuters(false) ;
 		}
 		catch (RepositoryException e) 

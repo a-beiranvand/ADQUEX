@@ -4,6 +4,7 @@ import iut.software.federationegine.structures.JoinStatus;
 import iut.software.federationegine.structures.NewJoin;
 import iut.software.federationegine.structures.OptimizerException;
 import iut.software.federationegine.structures.Tuple;
+import iut.software.federationengine.logging.myLogger;
 import iut.software.federationengine.threadmanagement.PoisonPill;
 import iut.software.federationengine.threadmanagement.SyncPoisonPill;
 import iut.software.federationengine.threadmanagement.ThreadStatus;
@@ -216,9 +217,12 @@ public class JoinExecuter implements Runnable {
 			}
 			
 		}
-		System.out.println("Join" +Thread.currentThread().getName()+ " Finished.");
-		System.out.println("Count Results Tuples= "+this.coutResultTuples);
-		System.out.println("Join" +Thread.currentThread().getName()+" "+ this.countReport+" times report to eddy" );
+		myLogger.printInfo("Join" +Thread.currentThread().getName()+ " Finished.");
+		//System.out.println("Join" +Thread.currentThread().getName()+ " Finished.");
+		myLogger.printInfo("Count Results Tuples= "+this.coutResultTuples);
+		//System.out.println("Count Results Tuples= "+this.coutResultTuples);
+		myLogger.printInfo("Join" +Thread.currentThread().getName()+" "+ this.countReport+" times report to eddy");
+		//System.out.println("Join" +Thread.currentThread().getName()+" "+ this.countReport+" times report to eddy" );
 	}
 	
 	/**
@@ -238,7 +242,8 @@ public class JoinExecuter implements Runnable {
 		}
 		this.stateReportedToEddy=true ;
 		//pakesh kon
-		System.out.println("Join" +Thread.currentThread().getName()+" reports with request id " +this.countPoisonRequestId);
+		myLogger.printInfo("Join" +Thread.currentThread().getName()+" reports with request id " +this.countPoisonRequestId);
+		//System.out.println("Join" +Thread.currentThread().getName()+" reports with request id " +this.countPoisonRequestId);
 		this.countReport++ ;
 	}
 	
