@@ -248,14 +248,14 @@ public class hook {
 //			 "}\n"+
 //		 "}"	;
 		
-		String queryString="PREFIX dbpedia-owl:<http://dbpedia.org/ontology/>"+
-				"PREFIX owl:<http://www.w3.org/2002/07/owl#>" +
-				"prefix nytimes: <http://data.nytimes.com/elements/>" +
-				"prefix dc:<http://purl.org/dc/terms/>" +
-				"prefix linkedMDB: <http://data.linkedmdb.org/resource/movie/>"+
-				"prefix dbpedia: <http://dbpedia.org/resource/>" +
-				"prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"+
-				"SELECT * WHERE { "+
+//		String queryString="PREFIX dbpedia-owl:<http://dbpedia.org/ontology/>"+
+//				"PREFIX owl:<http://www.w3.org/2002/07/owl#>" +
+//				"prefix nytimes: <http://data.nytimes.com/elements/>" +
+//				"prefix dc:<http://purl.org/dc/terms/>" +
+//				"prefix linkedMDB: <http://data.linkedmdb.org/resource/movie/>"+
+//				"prefix dbpedia: <http://dbpedia.org/resource/>" +
+//				"prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"+
+//				"SELECT * WHERE { "+
 //				"{SERVICE <http://dbpedia.org/sparql>\n" +
 //				"{\n"+
 ////				"?dbfilm a dbpedia-owl:Film.\n"+
@@ -269,35 +269,53 @@ public class hook {
 //				"}";
 //				"{ dbpedia:Barack_Obama ?predicate ?object }"+
 //				"UNION"+
-				"SERVICE <http://dbpedia.org/sparql>\n" +
-					"{\n"+
-						"?pres rdf:type dbpedia-owl:President ." +
-						"?pres dbpedia-owl:nationality dbpedia:United_States ."+
-						"?pres dbpedia-owl:party ?party"+
-					"}" +
-				 "SERVICE <http://dbpedia.org/sparql>\n" +
-						"{\n"+
-							"?pres rdf:type dbpedia-owl:President ." +
-							"?pres dbpedia-owl:nationality dbpedia:United_States ."+
-//							"?pres dbpedia-owl:party <http://dbpedia.org/resource/Democratic_Party_(United_States)>"+
-							"?pres dbpedia-owl:party ?partyj"+
-						"}"+
-						 "SERVICE <http://dbpedia.org/sparql>\n" +
-							"{\n"+
-								"?pres rdf:type dbpedia-owl:President ." +
-								"?pres dbpedia-owl:nationality dbpedia:United_States ."+
-//								"?pres dbpedia-owl:party <http://dbpedia.org/resource/Democratic_Party_(United_States)>"+
-								"?pres dbpedia-owl:party ?partyk"+
-							"}"+
-				"}\n";
+//				"SERVICE <http://172.16.3.171:8890/sparql>\n" +
+//					"{\n"+
+//						"?pres rdf:type dbpedia-owl:President ." +
+//						"?pres dbpedia-owl:nationality dbpedia:United_States ."+
+//						"?pres dbpedia-owl:party ?party"+
+//					"}" +
+//				 "SERVICE <http://172.16.3.171:8890/sparql>\n" +
+//						"{\n"+
+//							"?pres rdf:type dbpedia-owl:President ." +
+//							"?pres dbpedia-owl:nationality dbpedia:United_States ."+
+////							"?pres dbpedia-owl:party <http://dbpedia.org/resource/Democratic_Party_(United_States)>"+
+//							"?pres dbpedia-owl:party ?partyj"+
+//						"}"+
+//						 "SERVICE <http://172.16.3.171:8890/sparql>\n" +
+//							"{\n"+
+//								"?pres rdf:type dbpedia-owl:President ." +
+//								"?pres dbpedia-owl:nationality dbpedia:United_States ."+
+////								"?pres dbpedia-owl:party <http://dbpedia.org/resource/Democratic_Party_(United_States)>"+
+//								"?pres dbpedia-owl:party ?partyk"+
+//							"}"+
+//				"}\n";
 //				"{ SERVICE <http://dbpedia.org/sparql>{" +
 //				" ?subject owl:sameAs dbpedia:Barack_Obama ." +
 //			    " ?subject ?predicate ?object } }}" ;
-//		String queryString =QueryStrings.cd5Service ;
-		myLogger.queryId="TESTMOTIVATION"  ;
+//		String queryString ="SELECT * WHERE "+
+//				"{"+ 
+//				"SERVICE <http://172.16.3.171:8890/sparql>\n" +
+//				"{\n"+
+//				"?dbfilm <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Film>.\n"+
+//				"?dbfilm <http://dbpedia.org/ontology/starring> ?dbactor.\n"+
+//				"\n}"+
+//				"SERVICE <http://172.16.3.164:8890/sparql>\n" +
+//				"{\n"+
+//				"?imdbactor <http://www.w3.org/2002/07/owl#sameAs> ?dbactor."+
+//				" }"+
+//				"SERVICE <http://172.16.3.178:8890/sparql>\n" +
+//				"{\n"+
+//				"?yactor <http://www.w3.org/2002/07/owl#sameAs> ?dbactor."+
+//					"?yactor <http://data.nytimes.com/elements/topicPage> ?newspage." +
+//					" }"+
+//				" }" ;
+		
+		String queryString =QueryStrings.myQuery4Service ;
+		myLogger.queryId="Myquery4"  ;
 		myLogger.queryString=queryString ;
-		myLogger.systemName="MySystem-Lottery" ;
-		myLogger.folderToSave="H:\\Isfahan University Of Technology\\Term 6\\Project\\Final Evaluation Results\\Adaptivity Test\\Effect of random priority\\";
+		myLogger.systemName="MySystem-Deterministic" ;
+		myLogger.folderToSave="c:\\ADQUEX Evaluations\\Compare with other systems\\Myqueries\\";
 		myLogger.timeout=5;
 		myLogger.logging=false;
 		try
@@ -306,7 +324,7 @@ public class hook {
 			TupleExpr tExpr = Parser.parseQueryString(queryString) ;
 			myLogger.printInfo(tExpr);
 			//System.out.println(tExpr.toString());
-			Optimizer.Optimize(tExpr,true) ;
+			Optimizer.Optimize(tExpr,false) ;
 			myLogger.printInfo("Optimized Plan:\n");
 			//System.out.println("Optimized Plan:\n");
 			myLogger.printInfo(tExpr);
@@ -348,8 +366,8 @@ public class hook {
 			
 			System.out.println("Execution Time = "+ executionTime);
 			Thread.sleep(2000) ;
-			//myLogger.printStatistics() ;
-			//myLogger.saveStatistics();
+			myLogger.saveStatistics();
+			myLogger.printStatistics() ;
 			System.exit(0);
 		}
 		catch (MalformedQueryException e)

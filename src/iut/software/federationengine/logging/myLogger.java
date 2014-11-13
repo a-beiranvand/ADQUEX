@@ -60,9 +60,12 @@ public class myLogger
 				FileUtils.writeStringToFile(statFile,"Notice: All of times are in miliseconds\n\n", true) ;
 				FileUtils.writeStringToFile(statFile,"Timeout:"+timeout+"min\n\n", true) ;
 				FileUtils.writeStringToFile(statFile,"First Tuple Time,Execution Time,Number Of Results,Number Of Intermediate Results,All Of Routed Tuples", true) ;
-				for (OperatorStatistics opStat :opStatisticList)
+				if (opStatisticList != null)
 				{
-					FileUtils.writeStringToFile(statFile,",Percent of tuples first routed to join "+opStat.getOperatorId()+"("+opStat.getJoinVar()+")", true) ;
+					for (OperatorStatistics opStat :opStatisticList)
+					{
+						FileUtils.writeStringToFile(statFile,",Percent of tuples first routed to join "+opStat.getOperatorId()+"("+opStat.getJoinVar()+")", true) ;
+					}
 				}
 				FileUtils.writeStringToFile(statFile,",Routing strategy,Wait for all tuples to be buffered,Random ceiling,Delay fine,Delay threshold,Use random priority for tuples\n", true) ;
 				writeStatsToFile(statFile);
@@ -79,9 +82,12 @@ public class myLogger
 		try 
 		{
 			FileUtils.writeStringToFile(fileToWriteOnIt,firstTuple+","+executionTime+","+numberOfResultTuples+","+numberOfIntermediateResults+","+allOfRoutedTuples, true) ;
-			for (OperatorStatistics opStat :opStatisticList)
+			if (opStatisticList != null)
 			{
-				FileUtils.writeStringToFile(fileToWriteOnIt,","+opStat.getPercentOfTuplesRoutedToThisOp(), true) ;
+				for (OperatorStatistics opStat :opStatisticList)
+				{
+					FileUtils.writeStringToFile(fileToWriteOnIt,","+opStat.getPercentOfTuplesRoutedToThisOp(), true) ;
+				}
 			}
 			FileUtils.writeStringToFile(fileToWriteOnIt,","+strRoutingStrategy+","+waitForAllSubqueryExecs+","+randomCeiling+","+delayFine+","+delayThreshold+","+useRandomPriority+"\n", true) ;
 		}

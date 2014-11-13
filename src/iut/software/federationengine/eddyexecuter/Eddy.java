@@ -86,7 +86,10 @@ public class Eddy implements Runnable{
 	@Override
 	public void run() 
 	{
+		long start =System.currentTimeMillis();
 		Execute();
+		long eddyExecTime=System.currentTimeMillis()-start ;
+		System.out.println("Eddy Execution Time:"+eddyExecTime);
 	}
 	
 	
