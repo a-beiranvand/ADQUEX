@@ -100,7 +100,7 @@ public class Eddy implements Runnable{
 		this.TupleHeap =new PriorityBlockingQueue<Tuple>(10000) ;
 		this.eddyThreadExecuter =new ThreadExecuter();
 		this.eddyThreadState=ThreadStatus.Normal;
-		//this.waitForAllSubqueryExecs=true ;
+//		this.waitForAllSubqueryExecs=true ;
 		this.waitForAllSubqueryExecs=false; 
 		this.StrRoutingStrategy="Deterministic";
 		//this.StrRoutingStrategy="Lottery" ;
@@ -362,15 +362,7 @@ public class Eddy implements Runnable{
 			jExecuter.JoinTuple(eddyReadyPoison);
 			
 		}
-		//Send End of Results to Result Set
-		try
-		{
-			this.resultTupleSet.put(eddyReadyPoison);
-		}
-		catch (InterruptedException e) 
-		{
-			e.printStackTrace();
-		}
+		
 		//System.out.println("Eddy Poison sended!");
 	}
 	
@@ -395,6 +387,15 @@ public class Eddy implements Runnable{
 		for (JoinExecuter jExecuter : this.joinExecuters)
 		{
 			jExecuter.JoinTuple(eddyReadyPoison);
+		}
+		//Send End of Results to Result Set
+		try
+		{
+			this.resultTupleSet.put(eddyReadyPoison);
+		}
+		catch (InterruptedException e) 
+		{
+			e.printStackTrace();
 		}
 	}
 

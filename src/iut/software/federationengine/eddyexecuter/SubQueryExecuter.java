@@ -131,22 +131,22 @@ public class SubQueryExecuter implements Runnable {
 		}
 		catch (RepositoryException e) 
 		{
-			OptimizerException optm =new OptimizerException(e);
+			OptimizerException optm =new OptimizerException("Subquery ID="+subQueryName+"\nEndpoint Address="+serviceSubQuery.getEndpointAdress()+"\nSubQuery="+serviceSubQuery.getQueryString()+e);
 			throw optm;
 		}
 		catch (MalformedQueryException e) 
 		{
-			OptimizerException optm =new OptimizerException(e);
+			OptimizerException optm =new OptimizerException("Subquery ID="+subQueryName+"\nEndpoint Address="+serviceSubQuery.getEndpointAdress()+"\nSubQuery="+serviceSubQuery.getQueryString()+e);
 			throw optm;
 		}
 		catch (QueryEvaluationException e) 
 		{
-			OptimizerException optm =new OptimizerException(e);
+			OptimizerException optm =new OptimizerException("Subquery ID="+subQueryName+"\nEndpoint Address="+serviceSubQuery.getEndpointAdress()+"\nSubQuery="+serviceSubQuery.getQueryString()+e);
 			throw optm;
 		} 
 		catch (InterruptedException e) 
 		{
-			OptimizerException optm =new OptimizerException(e);
+			OptimizerException optm =new OptimizerException("Subquery ID="+subQueryName+"\nEndpoint Address="+serviceSubQuery.getEndpointAdress()+"\nSubQuery="+serviceSubQuery.getQueryString()+e);
 			throw optm;
 		}
 	}

@@ -219,7 +219,7 @@ public class JoinExecuter implements Runnable {
 		}
 		myLogger.printInfo("Join" +Thread.currentThread().getName()+ " Finished.");
 		//System.out.println("Join" +Thread.currentThread().getName()+ " Finished.");
-		myLogger.printInfo("Count Results Tuples= "+this.coutResultTuples);
+		myLogger.printInfo("Join "+this.joinId+" Count Results Tuples= "+this.coutResultTuples);
 		//System.out.println("Count Results Tuples= "+this.coutResultTuples);
 		myLogger.printInfo("Join" +Thread.currentThread().getName()+" "+ this.countReport+" times report to eddy");
 		//System.out.println("Join" +Thread.currentThread().getName()+" "+ this.countReport+" times report to eddy" );
