@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List; 
 import iut.software.federationegine.structures.OptimizerException;
 
+import org.openrdf.query.algebra.Join;
 import org.openrdf.query.algebra.TupleExpr;
 import org.openrdf.query.algebra.Union;
 import org.openrdf.query.algebra.helpers.QueryModelVisitorBase;
@@ -25,6 +26,13 @@ public class UnionDecomposer extends QueryModelVisitorBase<OptimizerException>
 		query.visit(this) ;
 		return _UnionSubQueries ;
 	}
+	
+	@Override
+	public void meet(Join node) throws OptimizerException 
+	{
+		return;
+	}
+	
 	
 	@Override
 	public void meet(Union node) throws OptimizerException

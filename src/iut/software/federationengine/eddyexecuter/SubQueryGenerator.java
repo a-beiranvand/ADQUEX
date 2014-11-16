@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.openrdf.query.algebra.Service;
 import org.openrdf.query.algebra.TupleExpr;
+import org.openrdf.query.algebra.Union;
 import org.openrdf.query.algebra.helpers.QueryModelVisitorBase;
 
 public class SubQueryGenerator extends QueryModelVisitorBase<OptimizerException> {
@@ -78,10 +79,22 @@ public class SubQueryGenerator extends QueryModelVisitorBase<OptimizerException>
 	{
 		int readyBitPattern =0 ;
 		boolean isLeftChild =false ;
-		NewJoin parentJoin =(NewJoin)node.getParentNode() ;
-		if (node == parentJoin.getLeftArg())
+		NewJoin parentJoin;
+		if (node.getParentNode().getClass()==Union.class)
 		{
-			isLeftChild=true ;
+			parentJoin = (NewJoin)node.getParentNode().getParentNode() ;
+			if (node.getParentNode() == parentJoin.getLeftArg())
+			{
+				isLeftChild=true ;
+			}
+		}
+		else
+		{
+			parentJoin =(NewJoin)node.getParentNode() ;
+			if (node == parentJoin.getLeftArg())
+			{
+				isLeftChild=true ;
+			}
 		}
 		String exclusiveJoinVar =null ;
 		if ((joinTable.get(parentJoin.getJoinVariable()).size()>1) && (isLeftChild))
